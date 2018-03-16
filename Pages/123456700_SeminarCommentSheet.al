@@ -5,6 +5,7 @@ page 123456700 SeminarCommentSheet {
     PageType = List;
     SourceTable = "SeminarCommentLine";
     UsageCategory = Tasks;
+    AutoSplitKey = true;
 
     layout {
         area(content) {
@@ -19,4 +20,10 @@ page 123456700 SeminarCommentSheet {
             }
         }
     }
+
+    trigger OnNewRecord(BelowxRec : Boolean);
+    begin
+        SetupNewLine();
+    end;
+
 }

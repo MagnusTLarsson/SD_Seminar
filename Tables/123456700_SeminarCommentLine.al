@@ -18,7 +18,8 @@ table 123456700 SeminarCommentLine {
 
         field(30; "No."; Code[20]) {
             Caption = 'No.';
-            TableRelation = if ("Table Name" = const(Seminar)) "Seminar";
+            TableRelation = if ("Table Name" = const(Seminar)) "Seminar"
+                else if ("Table Name" = const("Seminar Registration")) "Seminar Registration Header";
         }
 
         field(40; "Line No."; Integer) {
@@ -44,6 +45,18 @@ table 123456700 SeminarCommentLine {
         }
     }
     
+    procedure SetupNewLine();
+    var
+        SeminarCommentLine: Record SeminarCommentLine;
 
+    begin
+        SeminarCommentLine.SetRange("Table Name", "Table Name");
+        SeminarCommentLine.SetRange("No.", "No.");
+        SeminarCommentLine.SetRange("Document Line no.", "Document Line no.");
+        SeminarCommentLine.SetRange("Date", WorkDate);
+
+        if SeminarCommentLine.IsEmpty then
+            Date := WorkDate;
+    end;
 
 }
