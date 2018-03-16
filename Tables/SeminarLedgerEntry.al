@@ -8,7 +8,7 @@ table 123456732 "Seminar Ledger Entry"
 
     fields
     {
-        field(1;"Entry No.";Code[10])
+        field(1;"Entry No.";Integer)
         {
             Caption = 'Entry No.';
         }
@@ -134,7 +134,7 @@ table 123456732 "Seminar Ledger Entry"
             Caption = 'Reason Code';
             TableRelation = "Reason Code";
         }
-        field(27;"No. Series";Code[10])
+        field(27;"Posting No. Series";Code[10])
         {
             Caption = 'Posting No. Series';
             TableRelation = "No. Series";
