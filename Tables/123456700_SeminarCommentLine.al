@@ -8,8 +8,8 @@ table 123456700 SeminarCommentLine {
     fields {
         field(10; "Table Name"; Option) {
             Caption = 'Table Name';
-            OptionMembers = "Seminar", "Seminar Registration Header", "Posted Seminar Reg. Header";
-            OptionCaption = 'Seminar,Seminar Registration Header,Posted Seminar Reg. Header';
+            OptionMembers = "Seminar", "Seminar Registration", "Posted Seminar Reg.";
+            OptionCaption = 'Seminar,Seminar Registration,Posted Seminar Reg.';
         }
 
         field(20; "Document Line no."; Integer) {
