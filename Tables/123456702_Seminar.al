@@ -6,11 +6,11 @@ table 123456703 Seminar {
     {
         field(10; "No."; Code[20]) {
             Caption = 'No.';
-            AssistEdit = true;
-            trigger onAssistEdit();
+            trigger OnValidate();
             begin
-                if AssistEdit then
-                    CurrPage.Update;
+                if("Search Name" = UpperCase(xRec.Name))
+                or("Search Name" = '') then
+                "Search Name" := Name;
             end;
         }
 
