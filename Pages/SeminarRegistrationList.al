@@ -1,6 +1,6 @@
 page 123456713 "Seminar Registration List"
 {
-    // CSD1.00 - 2018-01-01 - D. E. Veloper
+     // CSD1.00 - 2018-01-01 - D. E. Veloper
     //   Chapter 6 - Lab 3
     //     - Created new page
 
@@ -38,7 +38,7 @@ page 123456713 "Seminar Registration List"
                 field("Maximum Participants";"Maximum Participants")
                 {
                 }
-                field("Room Resource No.";"Room Resource No.")
+                field("Room Resource Code";"Room Resource No.")
                 {
                 }
             }
@@ -65,7 +65,7 @@ page 123456713 "Seminar Registration List"
                 {
                     Caption = 'Co&mments';
                     Image = Comment;
-                    RunObject = Page 123456700;
+                    RunObject = Page 123456706;
                     RunPageLink = "No."=Field("No.");
                     RunPageView = where("Table Name"=const("Seminar Registration"));
                 }
@@ -75,6 +75,16 @@ page 123456713 "Seminar Registration List"
                     Image = Costs;
                     RunObject = Page 123456724;
                     RunPageLink = "Document No."=Field("No.");
+                }
+                action("&Post")
+                {
+                    Caption='&Post';
+                    Image=PostDocument;
+                    Promoted=true;
+                    PromotedIsBig=true;
+                    PromotedCategory=Process;
+                    ShortcutKey=F9;
+                    RunObject=codeunit "Seminar-Post (Yes/No)";
                 }
             }
         }

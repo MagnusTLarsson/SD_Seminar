@@ -1,7 +1,9 @@
 table 123456721 "Posted Seminar Charge"
 {
-    //2018-03-17 TBM: Created
-    Caption='Posted Seminar Charge';
+    // CSD1.00 - 2018-01-01 - D. E. Veloper
+    //   Chapter 7 - Lab 3-4
+    //     - Created new table
+    Caption='Seminar Charge';
 
     fields
     {
@@ -9,7 +11,7 @@ table 123456721 "Posted Seminar Charge"
         {
             Caption='Document No.';
             NotBlank = true;
-            TableRelation = "Seminar Charge";
+            TableRelation = "Posted Seminar Reg. Header";
         }
         field(2;"Line No.";Integer)
         {
@@ -95,17 +97,5 @@ table 123456721 "Posted Seminar Charge"
     fieldgroups
     {
     }
-
-    trigger OnDelete();
-    begin
-
-    end;
-
-    trigger OnInsert();
-    begin
-        
-    end;
-
-    var
 }
 

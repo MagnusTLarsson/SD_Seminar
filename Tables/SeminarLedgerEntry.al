@@ -1,10 +1,17 @@
 table 123456732 "Seminar Ledger Entry"
 {
     // CSD1.00 - 2018-01-01 - D. E. Veloper
-    //   Chapter 7 - Lab 1
+    //   Chapter 7 - Lab 1 - 3
     //     - Created new table
+    //   Chapter 8 - Lab 2 - 1
+    //   Added key2
+    //   Chapter 8 - Lab 2 - 3
+    //   Added LookupPageId & DrilldownPageId properties
+    
 
     Caption = 'Seminar Ledger Entry';
+    LookupPageId="Seminar Ledger Entries";
+    DrillDownPageId="Seminar Ledger Entries";
 
     fields
     {
@@ -88,12 +95,12 @@ table 123456732 "Seminar Ledger Entry"
         field(17;"Room Resource No.";Code[20])
         {
             Caption = 'Room Resource No.';
-            TableRelation = Resource WHERE (Type=CONST(Machine));
+            TableRelation = Resource where (Type=const(Machine));
         }
         field(18;"Instructor Resource No.";Code[20])
         {
             Caption = 'Instructor Resource No.';
-            TableRelation = Resource WHERE (Type=CONST(Person));
+            TableRelation = Resource where (Type=const(Person));
         }
         field(19;"Starting Date";Date)
         {
@@ -117,7 +124,7 @@ table 123456732 "Seminar Ledger Entry"
         field(23;"Source No.";Code[20])
         {
             Caption = 'Source No.';
-            TableRelation = IF ("Source Type"=CONST(Seminar)) Seminar;
+            TableRelation = if ("Source Type"=const(Seminar)) Seminar;
         }
         field(24;"Journal Batch Name";Code[10])
         {
@@ -139,24 +146,27 @@ table 123456732 "Seminar Ledger Entry"
             Caption = 'Posting No. Series';
             TableRelation = "No. Series";
         }
-
-        field(28; "User ID"; Code[50]) {
-            Caption = 'User ID';
-            TableRelation = user where("User Name" = field("User ID"));
-            ValidateTableRelation = false;
-
+        field(28;"User Id";code[50])
+        {
+            TableRelation=user where("User Name"=field("User Id"));
+            ValidateTableRelation=false;
             trigger OnLookup();
             var
                 UserMgt : Codeunit "User Management";
             begin
-                UserMgt.LookupUserID("User ID");
+                usermgt.LookupUserID("User Id");
             end;
         }
     }
 
     keys
     {
-        key(Key1;"Entry No.") {}
+        key(Key1;"Entry No.")
+        {
+        }
+        key(key2;"Document No.","Posting Date")
+        {
+        }
     }
 
     fieldgroups

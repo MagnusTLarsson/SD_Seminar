@@ -5,10 +5,11 @@ page 123456735 "Posted Seminar Reg. Subpage"
     //     - Created new page
 
     AutoSplitKey = true;
-    Caption = 'Lines';
+    Caption = 'Posted Lines';
     DelayedInsert = true;
     PageType = ListPart;
-    SourceTable = Table123456719;
+    SourceTable = "Posted Seminar Reg. Line";
+    UsageCategory=Lists;
 
     layout
     {

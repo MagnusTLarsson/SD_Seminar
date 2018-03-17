@@ -4,10 +4,11 @@ page 123456734 "Posted Seminar Registration"
     //   Chapter 7 - Lab 3
     //     - Created new page
 
-    Caption = 'Seminar Registration';
+    Caption = 'Posted Seminar Registration';
     Editable = false;
     PageType = Document;
-    SourceTable = Table123456718;
+    SourceTable = "Posted Seminar Reg. Header";
+    UsageCategory=Documents;
 
     layout
     {
@@ -52,9 +53,9 @@ page 123456734 "Posted Seminar Registration"
                 {
                 }
             }
-            part(SeminarRegistrationLines;123456735)
+            part(SeminarRegistrationLines;"Posted Seminar Reg. Subpage")
             {
-                SubPageLink = Document No.=FIELD(No.);
+                SubPageLink = "Document No."=Field("No.");
             }
             group("Seminar Room")
             {
@@ -98,19 +99,19 @@ page 123456734 "Posted Seminar Registration"
         }
         area(factboxes)
         {
-            part(;123456717)
+            part("Seminar Details FactBox";"Seminar Details FactBox")
             {
-                SubPageLink = No.=FIELD(Seminar No.);
+                SubPageLink = "No."=Field("Seminar No.");
             }
-            part(;9084)
+            part("Customer Details FactBox";"Customer Details FactBox")
             {
                 Provider = SeminarRegistrationLines;
-                SubPageLink = No.=FIELD(Bill-to Customer No.);
+                SubPageLink = "No."=Field("Bill-to Customer No.");
             }
-            systempart(;Links)
+            systempart("Links";Links)
             {
             }
-            systempart(;Notes)
+            systempart("Notes";Notes)
             {
             }
         }
@@ -127,16 +128,16 @@ page 123456734 "Posted Seminar Registration"
                 {
                     Caption = 'Co&mments';
                     Image = Comment;
-                    RunObject = Page 123456706;
-                    RunPageLink = No.=FIELD(No.);
-                    RunPageView = WHERE(Document Type=CONST(Posted Seminar Registration));
+                    RunObject = Page "Seminar Comment List";
+                    RunPageLink = "No."=Field("No.");
+                    RunPageView = where("Table Name"=const("Posted Seminar Registration"));
                 }
                 action("&Charges")
                 {
                     Caption = '&Charges';
                     Image = Costs;
-                    RunObject = Page 123456739;
-                    RunPageLink = Document No.=FIELD(No.);
+                    RunObject = Page "Posted Seminar Charges";
+                    RunPageLink = "Document No."=Field("No.");
                 }
             }
         }

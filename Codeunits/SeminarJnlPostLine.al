@@ -1,40 +1,46 @@
-codeunit 123456732 "Seminar Jnl.-Post Line" {
-//2018-03-16 TBM Created
-
+codeunit 123456732 "Seminar Jnl.-Post Line"
+// CSD1.00 - 2018-01-01 - D. E. Veloper
+// Chapter 7 - Lab 2-2
+{
     TableNo = "Seminar Journal Line";
 
     trigger OnRun();
     begin
-        RunWithCheck(SeminarJnlLine);
+        RunWithCheck(Rec);
     end;
-    
-    var
-        SeminarJnlLine : Record "Seminar Journal Line";
-        SeminarLedgerEntry : Record "Seminar Ledger Entry";
-        SeminarRegister : Record "Seminar Register";
-        SeminarJnlCheckLine : Codeunit "Seminar Jnl.-Check Line";
-        NextEntryNo : Integer;
 
-    procedure RunWithCheck(var SeminarJnlLine2: Record "Seminar Journal Line");
+    var
+        SeminarJnlLine: Record "Seminar Journal Line";
+        SeminarLedgerEntry: Record "Seminar Ledger Entry";
+        SeminarRegister: Record "Seminar Register";
+        SeminarJnlCheckLine: Codeunit "Seminar Jnl.-Check Line";
+        NextEntryNo: Integer;
+
+    procedure RunWithCheck(var SeminarJnLine2: Record "Seminar Journal Line");
+    var
+        myInt: Integer;
     begin
-        with SeminarJnlLine2 do begin
-            SeminarJnlLine := SeminarJnlLine2;
+        with SeminarJnLine2 do
+        begin
+            SeminarJnlLine := SeminarJnLine2;
             Code();
-            SeminarJnlLine2 := SeminarJnlLine;
+            SeminarJnLine2 := SeminarJnlLine;
         end;
     end;
 
     local procedure Code();
+    var
+        myInt: Integer;
     begin
-        with SeminarJnlLine do begin
-            if EmptyLine() then
+        with SeminarJnlLine do
+        begin
+            if EmptyLine then
                 exit;
-            
+
             SeminarJnlCheckLine.RunCheck(SeminarJnlLine);
 
             if NextEntryNo = 0 then begin
                 SeminarLedgerEntry.LockTable;
-
                 if SeminarLedgerEntry.FindLast then
                     NextEntryNo := SeminarLedgerEntry."Entry No.";
                 NextEntryNo := NextEntryNo + 1;
@@ -44,26 +50,22 @@ codeunit 123456732 "Seminar Jnl.-Post Line" {
                 "Document Date" := "Posting Date";
 
             if SeminarRegister."No." = 0 then begin
-                SeminarRegister.LockTable;
-                
-                if(not SeminarRegister.FindLast) or (SeminarRegister."To Entry No." <> 0) then begin
+                SeminarRegister.LOCKTable;
+                if(not SeminarRegister.FINDLAST) or(SeminarRegister."To Entry No." <> 0) then begin
                     SeminarRegister.INIT;
                     SeminarRegister."No." := SeminarRegister."No." + 1;
                     SeminarRegister."From Entry No." := NextEntryNo;
                     SeminarRegister."To Entry No." := NextEntryNo;
                     SeminarRegister."Creation Date" := TODAY;
                     SeminarRegister."Source Code" := "Source Code";
-                    SeminarRegister."Journal Batch Name" :=
-                    "Journal Batch Name";
+                    SeminarRegister."Journal Batch Name" := "Journal Batch Name";
                     SeminarRegister."User ID" := USERID;
                     SeminarRegister.Insert;
                 end;
             end;
-            
             SeminarRegister."To Entry No." := NextEntryNo;
             SeminarRegister.Modify;
 
-            //New Seminar Ledger Entry Rec
             SeminarLedgerEntry.INIT;
             SeminarLedgerEntry."Seminar No." := "Seminar No.";
             SeminarLedgerEntry."Posting Date" := "Posting Date";
@@ -93,9 +95,8 @@ codeunit 123456732 "Seminar Jnl.-Post Line" {
             SeminarLedgerEntry."Posting No. Series" := "Posting No. Series";
             SeminarLedgerEntry."User ID" := USERID;
             SeminarLedgerEntry."Entry No." := NextEntryNo;
-            SeminarLedgerEntry.INSERT;
+            SeminarLedgerEntry.insert;
             NextEntryNo := NextEntryNo + 1;
-
         end;
     end;
 }

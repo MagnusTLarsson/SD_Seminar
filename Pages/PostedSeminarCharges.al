@@ -5,10 +5,11 @@ page 123456739 "Posted Seminar Charges"
     //     - Created new page
 
     AutoSplitKey = true;
-    Caption = 'Seminar Charges';
+    Caption = 'Posted Seminar Charges';
     Editable = false;
     PageType = List;
-    SourceTable = Table123456721;
+    SourceTable = "Posted Seminar Charge";
+    UsageCategory=Lists;
 
     layout
     {
