@@ -12,7 +12,7 @@ tableextension 123456700 ResourceExt extends Resource
         
             trigger OnAfterValidate()
             begin
-                TestField("Unit Cost");
+                //TestField("Unit Cost", '>0');
             end;
         }
         field(123456701;"Resource Type";Option)
